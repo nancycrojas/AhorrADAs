@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./assets/icon.png" type="image/x-icon">
     <!--Font-awesome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!--Link Bulma-->
@@ -14,23 +15,23 @@
     <!--Comienzo del header-->
     <header>
         <nav class="navbar has-background-primary" role="navigation" aria-label="main navigation">
-            <div class="navbar-brand m-4">
-                <h1 class="title has-text-white"><i class="fa-solid fa-wallet ml-6 mr-4"></i>AhorrADAs</h1>
-                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <div class="navbar-brand p-4">
+                <h1 class="title is-2-desktop has-text-white"><i class="fa-solid fa-wallet ml-6 mr-4"></i>AhorrADAs</h1>
+                <a role="button" class="navbar-burger has-text-white" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                 </a>
             </div>
-            <div id="navbarBasicExample" class="navbar-menu is-active">
+            <div id="navbarBasicExample" class="navbar-menu">
               <div class="buttons navbar-end">
-                <button class="button is-primary m-4">
+                <button class="button is-primary m-4 navbar-item">
                     <span><i class="fa-solid fa-chart-line m-2"></i>Balance</span>
                 </button>
-                <button class="button is-primary m-4">
+                <button class="button is-primary m-4 navbar-item">
                     <span><i class="fa-solid fa-tag m-2"></i>Categorías</span>
                 </button>
-                <button class="button is-primary m-4">
+                <button class="button is-primary m-4 navbar-item">
                     <span><i class="fa-sharp fa-solid fa-chart-pie m-2"></i>Reportes</span>
                 </button>
               </div>  
@@ -42,43 +43,43 @@
     <main> 
         <section class="section">
             <div class="container">
-                <div class="columns">
-                    <div class="column is-4">
+                <div class="columns is-centered">
+                    <div class="column is-3">
                         <!--Balance-->
                         <article class="box">
-                            <h2 class="title is-size-8">Balance</h2>
-                            <div class="container mb-6">
-                                <div class="columns">
-                                    <div class="column">Ganancias</div>
-                                    <div class="column">+$0</div>
+                            <h2 class="title is-size-8 has-text-weight-bold">Balance</h2>
+                            <div class="container">
+                                <div class="columns is-mobile is-vcentered">
+                                    <div class="column is-size-5">Ganancias</div>
+                                    <div class="column has-text-primary has-text-right is-size-5">+$0</div>
                                 </div>
-                                <div class="columns">
-                                    <div class="column">Gastos</div>
-                                    <div class="column">-$0</div>
+                                <div class="columns is-mobile is-vcentered">
+                                    <div class="column is-size-5">Gastos</div>
+                                    <div class="column has-text-danger has-text-right is-size-5">-$0</div>
                                 </div>
-                                <div class="columns">
-                                    <div class="column">Total</div>
-                                    <div class="column">$0</div>
+                                <div class="columns is-mobile is-vcentered">
+                                    <div class="column is-size-5">Total</div>
+                                    <div class="column has-text-right is-size-5">$0</div>
                                 </div>
                             </div>
                         </article>
                         <!--Filtros-->
                         <article class="box">
-                            <div class="columns">
+                            <div class="columns is-mobile is-vcentered">
                                 <div class="column">
-                                    <h2 class="title">Filtros</h2>
+                                    <h3 class="is-size-4 has-text-weight-bold">Filtros</h3>
                                 </div>
-                                <div class="column">
+                                <div class="column has-text-right">
                                     <a href="#">Ocultar filtros</a>
                                 </div>
                             </div>
-                            <form action="" id="form" class="mb-6">
+                            <form id="form">
                                 <div>
-                                    <div class="field">
+                                    <div class="field mt-4">
                                         <label class="label" for="filter-type">Tipo</label>
                                     </div>
-                                    <div class="select is-normal">
-                                        <select name="filter-type" id="filter-type">
+                                    <div class="select is-fullwidth">
+                                        <select name="filter-type" id="filter-type" class="is-fullwidth">
                                             <option value="todos">Todos</option>
                                             <option value="gastos">Gastos</option>
                                             <option value="ganancia">Ganancia</option>
@@ -86,18 +87,23 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <div class="field mt-5">
+                                    <div class="field mt-4">
                                         <label class="label" for="category">Categoría</label>
                                     </div>
-                                    <div class="select is-normal">
+                                    <div class="select is-fullwidth">
                                         <select name="category" id="category">
                                             <option value="todas">Todas</option>
-                                            <option value="colegio">Colegio</option>
+                                            <option value="comida">Comida</option>
+                                            <option value="servicios">Servicios</option>
+                                            <option value="salidas">Salidas</option>
+                                            <option value="educacion">Educación</option>
+                                            <option value="transporte">Transporte</option>
+                                            <option value="trabajo">Trabajo</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div>
-                                    <div class="field mt-5">
+                                    <div class="field mt-4">
                                         <label class="label" for="date">Desde</label>
                                     </div>
                                     <div class="control">
@@ -110,10 +116,10 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <div class="field mt-5">
+                                    <div class="field mt-4">
                                         <label class="label" for="sort-filter">Ordenar por</label>
                                     </div>
-                                    <div class="select is-normal">
+                                    <div class="select is-fullwidth">
                                         <select name="sort-filter" id="sort-filter">
                                             <option value="mas-reciente">Más reciente</option>
                                             <option value="menos-reciente">Menos reciente</option>
@@ -128,17 +134,17 @@
                         </article>
                     </div>
                     <!--Operaciones-->
-                    <div class="column is-8">
+                    <div class="column is-7">
                         <article class="box">
-                            <div class="container columns is-flex is-justify-content-space-between mt-1">
-                                <h2 class="title ml-3">Operaciones</h2>
-                                <button class="button is-primary mr-3">+ Nueva operaciòn</button>
+                            <div class="container columns is-flex is-justify-content-space-between mt-1  is-flex-wrap-wrap">
+                                <h3 class="subtitle is-size-4 has-text-weight-bold ml-3">Operaciones</h3>
+                                <button class="button is-primary mr-3">+ Nueva operación</button>
                             </div>
-                            <figure class="image 200x200">
-                                <img src="./assets/undraw_Transfer_money_re_6o1h.png">
+                            <figure class="has-text-centered">
+                                <img class="is-inline-block" src="./assets/undraw_Transfer_money_re_6o1hc.png">
                             </figure>
-                            <h3 class="subtitle has-text-centered"><strong>Sin resultados</strong></h3>
-                            <p class="has-text-centered">Cambia los filtros o agrega operaciones</p>
+                            <h3 class="subtitle is-size-4 has-text-centered"><strong>Sin resultados</strong></h3>
+                            <p class="has-text-centered mb-6">Cambia los filtros o agrega operaciones</p>
                         </article>
                     </div>
                 </div>
