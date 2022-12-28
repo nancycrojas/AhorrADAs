@@ -14,9 +14,11 @@
 <body>
     <!--Comienzo del header-->
     <header>
-        <nav class="navbar has-background-primary" role="navigation" aria-label="main navigation">
-            <div class="navbar-brand p-4">
-                <h1 class="title is-2-desktop has-text-white"><i class="fa-solid fa-wallet ml-6 mr-4"></i>AhorrADAs</h1>
+        <nav class="navbar has-background-primary is-spaced is-primary" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a href="#">
+                    <h1 class="title is-2 is-2-desktop has-text-white mt-1"><i class="fa-solid fa-wallet ml-6 mr-4"></i>AhorrADAs</h1>
+                </a>
                 <a role="button" class="navbar-burger has-text-white" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
@@ -24,23 +26,24 @@
                 </a>
             </div>
             <div id="navbarBasicExample" class="navbar-menu">
-              <div class="buttons navbar-end">
-                <button class="button is-primary m-4 navbar-item">
-                    <span><i class="fa-solid fa-chart-line m-2"></i>Balance</span>
-                </button>
-                <button class="button is-primary m-4 navbar-item">
-                    <span><i class="fa-solid fa-tag m-2"></i>Categorías</span>
-                </button>
-                <button class="button is-primary m-4 navbar-item">
-                    <span><i class="fa-sharp fa-solid fa-chart-pie m-2"></i>Reportes</span>
-                </button>
+              <div class="navbar-end">
+                <a class="is-primary m-4 navbar-item">
+                    <i class="fa-solid fa-chart-line m-2"></i>Balance
+                </a>
+                <a class="is-primary m-4 navbar-item">
+                    <i class="fa-solid fa-tag m-2"></i>Categorías
+                </a>
+                <a class="is-primary m-4 navbar-item">
+                    <i class="fa-sharp fa-solid fa-chart-pie m-2"></i>Reportes
+                </a>
               </div>  
             </div>
         </nav>
     </header>
     <!--Fin del header-->
     <!--Comienzo del main-->
-    <main> 
+    <main>
+        <!--Sección Balance-->
         <section class="section">
             <div class="container">
                 <div class="columns is-centered">
