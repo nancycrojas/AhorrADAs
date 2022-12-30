@@ -153,6 +153,78 @@
                 </div>
             </div>
         </section>
+        <!--Sección Nueva Operación-->
+        <section class="section is-hidden">
+            <div class="container column is-8">
+                <article class="box">
+                    <h2 class="title has-text-weight-bold">Nueva Operación</h2>
+                    <form id="form">
+                        <div class="field mt-4">
+                            <label for="operation-description" class="label">Descripción</label>
+                            <div class="control">
+                                <input 
+                                class="input"
+                                type="text"
+                                id="operation-description"
+                                name="operation-description"
+                                >
+                            </div>
+                        </div>
+                        <div class="field mt-4">
+                            <label for="operation-amount" class="label">Monto</label>
+                            <div class="control">
+                                <input 
+                                class="input"
+                                type="number"
+                                id="operation-amount"
+                                name="operation-amount"
+                                value="0"
+                                >
+                            </div>
+                        </div>
+                        <div class="field mt-4">
+                            <label for="operation-type" class="label">Tipo</label>
+                            <div class="select is-fullwidth">
+                                <select name="operation-type" id="operation-type">
+                                    <option value="gastos">Gastos</option>
+                                    <option value="ganancia">Ganancia</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="field mt-4">
+                            <label for="operation-category" class="label">Categoría</label>
+                            <div class="select is-fullwidth">
+                                <select name="operation-category" id="operation-category">
+                                    <option value="comida">Comida</option>
+                                    <option value="servicios">Servicios</option>
+                                    <option value="salidas">Salidas</option>
+                                    <option value="educacion">Educación</option>
+                                    <option value="transporte">Transporte</option>
+                                    <option value="trabajo">Trabajo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="field mt-4">
+                            <label for="operation-date" class="label">Fecha</label>
+                            <div class="control">
+                                <input
+                                 class="input" 
+                                 type="date" 
+                                 id="operation-date"
+                                 name="operation-date"
+                                 >
+                            </div>
+                        </div>
+                        <div class="field buttons is-justify-content-end mt-6">
+                            <div class="control">
+                                <button class="button">Cancelar</button>
+                                <button class="button is-success">Agregar</button>
+                            </div>
+                        </div>
+                    </form>
+                </article>
+            </div>
+        </section>
     </main>
     <!--Fin del main-->
     <!--Comienzo del footer-->
