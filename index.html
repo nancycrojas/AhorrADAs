@@ -230,7 +230,7 @@
             <div class="container column is-8">
                 <article class="box">
                     <h2 class="title has-text-weight-bold">Categorías</h2>
-                    <form id="form">
+                    <form id="form-category">
                         <div class="field mt-4">
                             <label for="category-name" class="label">Nombre</label>
                             <div class="control is-flex">
@@ -244,6 +244,33 @@
                             </div>
                         </div>
                         <div class="control" id="list-categories"></div>
+                    </form>
+                </article>
+            </div>
+        </section>
+        <!--Sección Editar Categoría-->
+        <section class="section">
+            <div class="container column is-8">
+                <article class="box">
+                    <h2 class="title has-text-weight-bold">Editar categoría</h2>
+                    <form id="form-edit-category">
+                        <div class="field mt-4">
+                            <label for="edit-category-name" class="label">Nombre</label>
+                            <div class="control is-flex">
+                                <input
+                                class="input mr-3"
+                                type="text"
+                                id="edit-category-name"
+                                name="edit-category-name"
+                                >
+                            </div>
+                        </div>
+                        <div class="field buttons is-justify-content-end mt-6">
+                            <div class="control">
+                                <button class="button">Cancelar</button>
+                                <button class="button is-success">Editar</button>
+                            </div>
+                        </div>
                     </form>
                 </article>
             </div>
