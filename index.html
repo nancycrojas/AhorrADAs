@@ -76,7 +76,7 @@
                                     <a href="#">Ocultar filtros</a>
                                 </div>
                             </div>
-                            <form id="form">
+                            <form id="form-filters">
                                 <div>
                                     <div class="field mt-4">
                                         <label class="label" for="filter-type">Tipo</label>
@@ -143,11 +143,21 @@
                                 <h3 class="subtitle is-size-4 has-text-weight-bold ml-3">Operaciones</h3>
                                 <button class="button is-primary mr-3">+ Nueva operación</button>
                             </div>
-                            <figure class="has-text-centered m-2">
-                                <img class="is-inline-block" src="./assets/undraw_Transfer_money_re_6o1hc.png">
-                            </figure>
-                            <h3 class="subtitle is-size-4 has-text-centered"><strong>Sin resultados</strong></h3>
-                            <p class="has-text-centered mb-5">Cambia los filtros o agrega operaciones</p>
+                            <div id="box-without-operations">
+                                <figure class="has-text-centered m-2">
+                                    <img class="is-inline-block" src="./assets/undraw_Transfer_money_re_6o1hc.png">
+                                </figure>
+                                <h3 class="subtitle is-size-4 has-text-centered"><strong>Sin resultados</strong></h3>
+                                <p class="has-text-centered mb-5">Cambia los filtros o agrega operaciones</p>
+                            </div>
+                            <div id="box-with-operations" class="columns has-text-weight-medium is-hidden">
+                                <div class="column">Descripción</div>
+                                <div class="column">Categoría</div>
+                                <div class="column">Fecha</div>
+                                <div class="column">Monto</div>
+                                <div class="column">Acciones</div>
+                            </div>
+                            <div id="operations"></div>
                         </article>
                     </div>
                 </div>
