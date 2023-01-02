@@ -4,7 +4,7 @@ const $ = (selector) => document.querySelector(selector);
 //Variables
 const $navbarMenu = $(".navbar-menu");
 const $btnBurger = $(".navbar-burger");
-const $formFilters =$("#form");
+const $formFilters =$("#form-filters");
 const $btnChangeFilters =$("#btn-change-filters");
 
 //Eventos
