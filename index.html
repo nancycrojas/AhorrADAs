@@ -27,13 +27,13 @@
             </div>
             <div id="navbarBasicExample" class="navbar-menu">
               <div class="navbar-end">
-                <a class="is-primary m-4 navbar-item">
+                <a class="is-primary m-4 navbar-item" id="btn-balance">
                     <i class="fa-solid fa-chart-line m-2"></i>Balance
                 </a>
-                <a class="is-primary m-4 navbar-item">
+                <a class="is-primary m-4 navbar-item" id="btn-categories">
                     <i class="fa-solid fa-tag m-2"></i>Categorías
                 </a>
-                <a class="is-primary m-4 navbar-item">
+                <a class="is-primary m-4 navbar-item" id="btn-reports">
                     <i class="fa-sharp fa-solid fa-chart-pie m-2"></i>Reportes
                 </a>
               </div>  
@@ -44,7 +44,7 @@
     <!--Comienzo del main-->
     <main>
         <!--Sección Balance-->
-        <section class="section">
+        <section class="section" id="section-balance">
             <div class="container">
                 <div class="columns is-centered">
                     <div class="column is-3">
@@ -141,7 +141,7 @@
                         <article class="box">
                             <div class="container columns is-flex is-justify-content-space-between mt-1  is-flex-wrap-wrap">
                                 <h3 class="subtitle is-size-4 has-text-weight-bold ml-3">Operaciones</h3>
-                                <button class="button is-primary mr-3">+ Nueva operación</button>
+                                <button class="button is-primary mr-3" id="btn-new-operation">+ Nueva operación</button>
                             </div>
                             <div id="box-without-operations">
                                 <figure class="has-text-centered m-2">
@@ -164,7 +164,7 @@
             </div>
         </section>
         <!--Sección Nueva Operación-->
-        <section class="section is-hidden">
+        <section class="section is-hidden" id="section-new-operation">
             <div class="container column is-8">
                 <article class="box">
                     <h2 class="title has-text-weight-bold">Nueva Operación</h2>
@@ -286,7 +286,7 @@
             </div>
         </section>
         <!--Sección Reportes-->
-        <section class="section is-hidden">
+        <section class="section is-hidden" id="section-reports">
             <div class="container column is-8">
                 <article class="box">
                     <h2 class="title has-text-weight-bold">Reportes</h2>
