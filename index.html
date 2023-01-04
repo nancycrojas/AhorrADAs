@@ -235,6 +235,72 @@
                 </article>
             </div>
         </section>
+        <!--Sección Editar Operación-->
+        <section class="section is-hidden">
+            <div class="container column is-8">
+                <article class="box">
+                    <h2 class="title has-text-weight-bold">Editar Operación</h2>
+                    <form id="form-edit-operation">
+                        <div class="field mt-4">
+                            <label for="edit-operation-description" class="label">Descripción</label>
+                            <div class="control">
+                                <input
+                                class="input"
+                                type="text"
+                                id="edit-operation-description"
+                                name="edit-operation-description"
+                                >
+                            </div>
+                        </div>
+                        <div class="field mt-4">
+                            <label for="edit-operation-amount" class="label">Monto</label>
+                            <div class="control">
+                                <input 
+                                class="input"
+                                type="number"
+                                id="edit-operation-amount"
+                                name="edit-operation-amount"
+                                value="0"
+                                >
+                            </div>
+                        </div>
+                        <div class="field mt-4">
+                            <label for="edit-operation-type" class="label">Tipo</label>
+                            <div class="select is-fullwidth">
+                                <select name="edit-operation-type" id="edit-operation-type">
+                                    <option value="gastos">Gastos</option>
+                                    <option value="ganancia">Ganancia</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="field mt-4">
+                            <label for="edit-operation-category" class="label">Categoría</label>
+                            <div class="select is-fullwidth">
+                                <select name="edit-operation-category" id="edit-operation-category">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="field mt-4">
+                            <label for="edit-operation-date" class="label">Fecha</label>
+                            <div class="control">
+                                <input
+                                 class="input" 
+                                 type="date" 
+                                 id="edit-operation-date"
+                                 name="edit-operation-date"
+                                 >
+                            </div>
+                        </div>
+                        <div class="field buttons is-justify-content-end mt-6">
+                            <div class="control">
+                                <button class="button">Cancelar</button>
+                                <button class="button is-success">Editar</button>
+                            </div>
+                        </div>
+                    </form>
+                </article>
+            </div>
+        </section>
         <!--Sección Categorías-->
         <section class="section is-hidden" id="section-categories">
             <div class="container column is-8">
