@@ -33,31 +33,29 @@ $btnChangeFilters.addEventListener("click",()=>{
 });
 
 //Flujo de pantallas
-$btnBalance.addEventListener("click",()=>{
-    $sectionBalance.classList.remove("is-hidden")
-    $sectionCategories.classList.add("is-hidden")
-    $sectionReports.classList.add("is-hidden")
-    $sectionNewOperation.classList.add("is-hidden")
-}); 
+const showSection=(sectionToShow)=> {
+    const sections = [$sectionBalance, $sectionCategories, $sectionReports, $sectionNewOperation];
+    sections.forEach(section =>{
+        if(section === sectionToShow){
+            section.classList.remove("is-hidden");
+        }else{
+            section.classList.add("is-hidden");
+        }
+    });
+}
 
+$btnBalance.addEventListener("click",()=>{
+    showSection($sectionBalance)
+});
 
 $btnCategories.addEventListener("click",()=>{
-    $sectionCategories.classList.remove("is-hidden")
-    $sectionBalance.classList.add("is-hidden")
-    $sectionReports.classList.add("is-hidden")
-    $sectionNewOperation.classList.add("is-hidden")
+    showSection($sectionCategories)
 });
 
 $btnReports.addEventListener("click",()=>{
-    $sectionReports.classList.remove("is-hidden")
-    $sectionBalance.classList.add("is-hidden")
-    $sectionCategories.classList.add("is-hidden")
-    $sectionNewOperation.classList.add("is-hidden")
+    showSection($sectionReports)
 });
 
 $btnNewOperation.addEventListener("click",()=>{
-    $sectionNewOperation.classList.remove("is-hidden")
-    $sectionBalance.classList.add("is-hidden")
-    $sectionCategories.classList.add("is-hidden")
-    $sectionReports.classList.add("is-hidden")
+    showSection($sectionNewOperation)
 });
