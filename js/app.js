@@ -13,7 +13,17 @@ const $sectionBalance = $("#section-balance");
 const $sectionCategories = $("#section-categories");
 const $sectionReports = $("#section-reports");
 const $sectionNewOperation = $("#section-new-operation");
-const $btnNewOperation = $("#btn-new-operation")
+const $btnNewOperation = $("#btn-new-operation");
+const $btnAddOperation = $("#btn-add-operation");
+const $btnCancelOperation = $("#btn-cancel-operation");
+const $operationDescription = $("#operation-description");
+const $operationAmount = $("#operation-amount");
+const $operationType = $("#operation-type");
+const $operationCategory = $("#operation-category");
+const $operationDate = $("#operation-date");
+const $operations = $("#operations");
+const $boxWithOperations = $("#box-with-operations");
+const $boxWithoutOperations = $("#box-without-operations");
 
 //Eventos
 //Menú hamburguesa
@@ -33,7 +43,7 @@ $btnChangeFilters.addEventListener("click",()=>{
 });
 
 //Flujo de pantallas
-const showSection=(sectionToShow)=> {
+const showSection = (sectionToShow) => {
     const sections = [$sectionBalance, $sectionCategories, $sectionReports, $sectionNewOperation];
     sections.forEach(section =>{
         if(section === sectionToShow){
@@ -59,3 +69,61 @@ $btnReports.addEventListener("click",()=>{
 $btnNewOperation.addEventListener("click",()=>{
     showSection($sectionNewOperation)
 });
+
+//Mostrar las operaciones en balance
+const showingOperations = (arrayop) => {
+    if(arrayop.length === 0){
+        $boxWithOperations.classList.add("is-hidden");
+        $boxWithoutOperations.classList.remove("is-hidden");
+    }else{
+        $boxWithOperations.classList.remove("is-hidden");
+        $boxWithoutOperations.classList.add("is-hidden");
+    }
+};
+
+let operations = [];
+
+//Creo un objeto con la información obtenida del evento
+$btnAddOperation.addEventListener("click",()=>{
+    const newOperation = {
+        descripcion : $operationDescription.value,
+        monto: Number($operationAmount.value),
+        tipo: $operationType.value,
+        categoria: $operationCategory.value,
+        fecha: $operationDate.value,
+        id: uuid.v1()  
+    };
+    //Agrego el objeto a la lista operations y la guardo en el local storage
+    operations.push(newOperation);
+    localStorage.setItem("operationsStorage", JSON.stringify(operations));
+    const getOperationsStorage = JSON.parse(localStorage.getItem("operationsStorage"));
+});
+
+//Generar operaciones en balance
+const generateOperationsHtml = (operations) => {
+    $operations.innerHTML = "";
+    const $divContainer = document.createElement("div");
+    for(const { descripcion, categoria, fecha, tipo, monto, id} of operations) {
+        $divContainer.innerHTML += `
+        <div class="columns">
+            <div class="column">${descripcion}</div>
+            <div class="column">
+                <span>${categoria}</span>
+            </div>
+            <div class="column">${fecha}</div>
+            <div class="column">
+                <span class="${tipo=='gastos' ? 'has-text-danger' : 'has-text-success'}">$${monto}</span>
+            </div>
+            <div class="column">
+                <button class="button is-small is-ghost">Editar</button>
+                <button class="button is-small is-ghost">Eliminar</button>
+            </div>
+        </div>
+        `;
+        $operations.appendChild($divContainer);
+    }
+};
+
+operations = JSON.parse(localStorage.getItem("operationsStorage")) || [];
+generateOperationsHtml(operations);
+showingOperations(operations);
