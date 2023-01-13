@@ -105,14 +105,14 @@ const generateOperationsHtml = (operations) => {
     const $divContainer = document.createElement("div");
     for(const { descripcion, categoria, fecha, tipo, monto, id} of operations) {
         $divContainer.innerHTML += `
-        <div class="columns">
-            <div class="column">${descripcion}</div>
+        <div class="columns is-mobile is-multiline">
+            <div class="column has-text-weight-medium">${descripcion}</div>
             <div class="column">
-                <span>${categoria}</span>
+                <span class="tag is-primary is-light is-rounded">${categoria}</span>
             </div>
-            <div class="column">${fecha}</div>
+            <div class="column is-hidden-mobile">${fecha}</div>
             <div class="column">
-                <span class="${tipo=='gastos' ? 'has-text-danger' : 'has-text-success'}">$${monto}</span>
+                <span class="${tipo=='gastos' ? 'has-text-danger' : 'has-text-success'} has-text-weight-medium">$${monto}</span>
             </div>
             <div class="column">
                 <button class="button is-small is-ghost">Editar</button>
