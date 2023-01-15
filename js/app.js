@@ -30,6 +30,7 @@ const $editOperationAmount = $("#edit-operation-amount");
 const $editOperationType = $("#edit-operation-type");
 const $editOperationCategory = $("#edit-operation-category");
 const $editOperationDate = $("#edit-operation-date");
+const $btnEditOperation = $("#btn-edit-operation");
 
 //Eventos
 //Menú hamburguesa
@@ -141,6 +142,7 @@ showEditOpSection = () => {
     $sectionEditOperation.classList.remove("is-hidden");
 };
 
+//Editar Operación
 let operationToEdit;
 
 const editOp = (id) => {
@@ -152,3 +154,13 @@ const editOp = (id) => {
     $editOperationCategory.value = operationToEdit.categoria;
     $editOperationDate.value = operationToEdit.fecha;
 };
+
+$btnEditOperation.addEventListener("click",()=>{
+    operationToEdit.descripcion = $editOperationDescription.value;
+    operationToEdit.monto = $editOperationAmount.value;
+    operationToEdit.tipo = $editOperationType.value;
+    operationToEdit.categoria = $editOperationCategory.value;
+    operationToEdit.fecha = $editOperationDate.value;
+
+    localStorage.setItem("operationsStorage", JSON.stringify(operations));
+});
