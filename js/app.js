@@ -25,6 +25,11 @@ const $operations = $("#operations");
 const $boxWithOperations = $("#box-with-operations");
 const $boxWithoutOperations = $("#box-without-operations");
 const $sectionEditOperation = $("#section-edit-operation");
+const $editOperationDescription = $("#edit-operation-description");
+const $editOperationAmount = $("#edit-operation-amount");
+const $editOperationType = $("#edit-operation-type");
+const $editOperationCategory = $("#edit-operation-category");
+const $editOperationDate = $("#edit-operation-date");
 
 //Eventos
 //Menú hamburguesa
@@ -116,7 +121,7 @@ const generateOperationsHtml = (operations) => {
                 <span class="${tipo=='gastos' ? 'has-text-danger' : 'has-text-success'} has-text-weight-medium">$${monto}</span>
             </div>
             <div class="column">
-                <button class="button is-small is-ghost" onclick="editOp()">Editar</button>
+                <button class="button is-small is-ghost" onclick="editOp('${id}')">Editar</button>
                 <button class="button is-small is-ghost" onclick="deleteOp()">Eliminar</button>
             </div>
         </div>
@@ -134,8 +139,16 @@ showEditOpSection = () => {
     const sections = [$sectionCategories, $sectionReports, $sectionNewOperation, $sectionBalance];
     sections.forEach(section => section.classList.add("is-hidden"));
     $sectionEditOperation.classList.remove("is-hidden");
-}
+};
 
-const editOp = () => {
+let operationToEdit;
+
+const editOp = (id) => {
     showEditOpSection();
+    operationToEdit = operations.find((elemento) => elemento.id === id);
+    $editOperationDescription.value = operationToEdit.descripcion;
+    $editOperationAmount.value = operationToEdit.monto;
+    $editOperationType.value = operationToEdit.tipo;
+    $editOperationCategory.value = operationToEdit.categoria;
+    $editOperationDate.value = operationToEdit.fecha;
 };
