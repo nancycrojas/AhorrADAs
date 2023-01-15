@@ -31,6 +31,9 @@ const $editOperationType = $("#edit-operation-type");
 const $editOperationCategory = $("#edit-operation-category");
 const $editOperationDate = $("#edit-operation-date");
 const $btnEditOperation = $("#btn-edit-operation");
+const $btnNewCategory = $("#btn-new-category");
+const $inputCategory = $("#category-name");
+const $listCategories = $("#list-categories");
 
 //Eventos
 //Menú hamburguesa
@@ -110,7 +113,7 @@ $btnAddOperation.addEventListener("click",()=>{
 const generateOperationsHtml = (operations) => {
     $operations.innerHTML = "";
     const $divContainer = document.createElement("div");
-    for(const { descripcion, categoria, fecha, tipo, monto, id} of operations) {
+    for(const { descripcion, categoria, fecha, tipo, monto, id } of operations) {
         $divContainer.innerHTML += `
         <div class="columns is-mobile is-multiline">
             <div class="column has-text-weight-medium">${descripcion}</div>
@@ -182,3 +185,62 @@ const deleteOp = (id) => {
         generateOperationsHtml(operations);
     }
 };
+
+//Agregar nueva categoría
+let categories = [
+    {
+        nombre: "Comida",
+        id: 1
+    },
+    {
+        nombre: "Servicios",
+        id: 2
+    },
+    {
+        nombre: "Salidas",
+        id: 3
+    },
+    {
+        nombre: "Educación",
+        id: 4
+    },
+    {
+        nombre: "Transporte",
+        id: 5
+    },
+    {
+        nombre: "Trabajo",
+        id: 6
+    }
+]
+
+$btnNewCategory.addEventListener("click",()=>{
+    const newCategory = $inputCategory.value;
+    categories.push({nombre: newCategory, id: uuid.v1()});
+
+    localStorage.setItem("categoriesStorage", JSON.stringify(categories));
+    const getCategoriesStorage = JSON.parse(localStorage.getItem("categoriesStorage"));
+});
+
+//Generar categorías en vista categoría
+const generateCategoriesHtml = (categories) => {
+    $listCategories.innerHTML = "";
+    const $divCategory = document.createElement("div");
+    for(const { nombre, id } of categories){
+        $divCategory.innerHTML +=`
+        <div class="columns is-mobile is-multiline">
+            <div class="column">
+                <span class="tag is-primary is-light is-rounded">${nombre}</span>
+            </div>
+            <div class="column has-text-right">
+                <button class="button is-small is-ghost">Editar</button>
+                <button class="button is-small is-ghost">Eliminar</button>
+            </div>
+        </div>
+        `;
+        $listCategories.appendChild($divCategory);
+    }
+};
+
+categories = JSON.parse(localStorage.getItem("categoriesStorage")) || [];
+generateCategoriesHtml(categories);
