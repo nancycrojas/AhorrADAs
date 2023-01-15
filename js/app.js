@@ -24,6 +24,7 @@ const $operationDate = $("#operation-date");
 const $operations = $("#operations");
 const $boxWithOperations = $("#box-with-operations");
 const $boxWithoutOperations = $("#box-without-operations");
+const $sectionEditOperation = $("#section-edit-operation");
 
 //Eventos
 //Menú hamburguesa
@@ -44,7 +45,7 @@ $btnChangeFilters.addEventListener("click",()=>{
 
 //Flujo de pantallas
 const showSection = (sectionToShow) => {
-    const sections = [$sectionBalance, $sectionCategories, $sectionReports, $sectionNewOperation];
+    const sections = [$sectionBalance, $sectionCategories, $sectionReports, $sectionNewOperation, $sectionEditOperation];
     sections.forEach(section =>{
         if(section === sectionToShow){
             section.classList.remove("is-hidden");
@@ -115,8 +116,8 @@ const generateOperationsHtml = (operations) => {
                 <span class="${tipo=='gastos' ? 'has-text-danger' : 'has-text-success'} has-text-weight-medium">$${monto}</span>
             </div>
             <div class="column">
-                <button class="button is-small is-ghost">Editar</button>
-                <button class="button is-small is-ghost">Eliminar</button>
+                <button class="button is-small is-ghost" onclick="editOp()">Editar</button>
+                <button class="button is-small is-ghost" onclick="deleteOp()">Eliminar</button>
             </div>
         </div>
         `;
@@ -127,3 +128,14 @@ const generateOperationsHtml = (operations) => {
 operations = JSON.parse(localStorage.getItem("operationsStorage")) || [];
 generateOperationsHtml(operations);
 showingOperations(operations);
+
+//Mostrar Editar Operación
+showEditOpSection = () => {
+    const sections = [$sectionCategories, $sectionReports, $sectionNewOperation, $sectionBalance];
+    sections.forEach(section => section.classList.add("is-hidden"));
+    $sectionEditOperation.classList.remove("is-hidden");
+}
+
+const editOp = () => {
+    showEditOpSection();
+};
