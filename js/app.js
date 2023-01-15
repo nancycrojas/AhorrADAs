@@ -123,7 +123,7 @@ const generateOperationsHtml = (operations) => {
             </div>
             <div class="column">
                 <button class="button is-small is-ghost" onclick="editOp('${id}')">Editar</button>
-                <button class="button is-small is-ghost" onclick="deleteOp()">Eliminar</button>
+                <button class="button is-small is-ghost" onclick="deleteOp('${id}')">Eliminar</button>
             </div>
         </div>
         `;
@@ -164,3 +164,21 @@ $btnEditOperation.addEventListener("click",()=>{
 
     localStorage.setItem("operationsStorage", JSON.stringify(operations));
 });
+
+//Cancelar Editar Operacion
+const showSectionOp = () => {
+    const sections = [$sectionCategories, $sectionReports, $sectionNewOperation, $sectionEditOperation];
+    sections.forEach(section => section.classList.add("is-hidden"));
+    $sectionBalance.classList.remove("is-hidden");
+};
+
+//Eliminar Operación
+const deleteOp = (id) => {
+    const foundElement = operations.find((elemento) => elemento.id === id);
+    if(foundElement){
+        const index = operations.indexOf(foundElement);
+        operations.splice(index,1);
+        localStorage.setItem("operationsStorage", JSON.stringify(operations));
+        generateOperationsHtml(operations);
+    }
+};
