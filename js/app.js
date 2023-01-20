@@ -34,6 +34,8 @@ const $btnEditOperation = $("#btn-edit-operation");
 const $btnNewCategory = $("#btn-new-category");
 const $inputCategory = $("#category-name");
 const $listCategories = $("#list-categories");
+const $sectionEditCategory = $("#section-edit-category");
+const $inputEditCategory = $("#edit-category-name");
 
 //Eventos
 //Menú hamburguesa
@@ -54,7 +56,7 @@ $btnChangeFilters.addEventListener("click",()=>{
 
 //Flujo de pantallas
 const showSection = (sectionToShow) => {
-    const sections = [$sectionBalance, $sectionCategories, $sectionReports, $sectionNewOperation, $sectionEditOperation];
+    const sections = [$sectionBalance, $sectionCategories, $sectionReports, $sectionNewOperation, $sectionEditOperation, $sectionEditCategory];
     sections.forEach(section =>{
         if(section === sectionToShow){
             section.classList.remove("is-hidden");
@@ -222,6 +224,24 @@ $btnNewCategory.addEventListener("click",()=>{
     const getCategoriesStorage = JSON.parse(localStorage.getItem("categoriesStorage"));
 });
 
+const hideOthersSections = () => {
+    const sections = [$sectionBalance, $sectionCategories, $sectionReports, $sectionNewOperation];
+    sections.forEach(section => section.classList.add("is-hidden"));
+    $sectionEditCategory.classList.remove("is-hidden");
+};
+
+//Editar categoría
+let result;
+const editcategory = () => {
+    hideOthersSections();
+    const foundCategory = categories.find((elemento) => elemento.id === category);
+    if(foundCategory){
+        $inputEditCategory.value = foundCategory.nombre;
+        result = {valor: $inputEditCategory.value, i: categories.indexOf(foundCategory)};
+    }
+    return result;
+};
+
 //Generar categorías en vista categoría
 const generateCategoriesHtml = (categories) => {
     $listCategories.innerHTML = "";
@@ -233,7 +253,7 @@ const generateCategoriesHtml = (categories) => {
                 <span class="tag is-primary is-light is-rounded">${nombre}</span>
             </div>
             <div class="column has-text-right">
-                <button class="button is-small is-ghost">Editar</button>
+                <button class="button is-small is-ghost" onclick="editcategory('${id}')">Editar</button>
                 <button class="button is-small is-ghost">Eliminar</button>
             </div>
         </div>
