@@ -36,6 +36,7 @@ const $inputCategory = $("#category-name");
 const $listCategories = $("#list-categories");
 const $sectionEditCategory = $("#section-edit-category");
 const $inputEditCategory = $("#edit-category-name");
+const $btnEditCategory = $("#btn-edit-category");
 
 //Eventos
 //Menú hamburguesa
@@ -82,6 +83,12 @@ $btnNewOperation.addEventListener("click",()=>{
     showSection($sectionNewOperation)
 });
 
+//Cancelar Nueva Operación
+$btnCancelOperation.addEventListener("click",()=>{
+    $sectionNewOperation.classList.add("is-hidden");
+    $sectionBalance.classList.remove("is-hidden");
+});
+
 //Mostrar las operaciones en balance
 const showingOperations = (arrayop) => {
     if(arrayop.length === 0){
@@ -109,6 +116,8 @@ $btnAddOperation.addEventListener("click",()=>{
     operations.push(newOperation);
     localStorage.setItem("operationsStorage", JSON.stringify(operations));
     const getOperationsStorage = JSON.parse(localStorage.getItem("operationsStorage"));
+
+    generateOperationsHtml(getOperationsStorage);
 });
 
 //Generar operaciones en balance
@@ -141,10 +150,17 @@ generateOperationsHtml(operations);
 showingOperations(operations);
 
 //Mostrar Editar Operación
-showEditOpSection = () => {
+const showEditOpSection = () => {
     const sections = [$sectionCategories, $sectionReports, $sectionNewOperation, $sectionBalance];
     sections.forEach(section => section.classList.add("is-hidden"));
     $sectionEditOperation.classList.remove("is-hidden");
+};
+
+//Cancelar Editar Operacion
+const showSectionOp = () => {
+    const sections = [$sectionCategories, $sectionReports, $sectionNewOperation, $sectionEditOperation];
+    sections.forEach(section => section.classList.add("is-hidden"));
+    $sectionBalance.classList.remove("is-hidden");
 };
 
 //Editar Operación
@@ -158,6 +174,7 @@ const editOp = (id) => {
     $editOperationType.value = operationToEdit.tipo;
     $editOperationCategory.value = operationToEdit.categoria;
     $editOperationDate.value = operationToEdit.fecha;
+    return operationToEdit;
 };
 
 $btnEditOperation.addEventListener("click",()=>{
@@ -168,14 +185,9 @@ $btnEditOperation.addEventListener("click",()=>{
     operationToEdit.fecha = $editOperationDate.value;
 
     localStorage.setItem("operationsStorage", JSON.stringify(operations));
+    generateOperationsHtml(operations);
+    showSectionOp();
 });
-
-//Cancelar Editar Operacion
-const showSectionOp = () => {
-    const sections = [$sectionCategories, $sectionReports, $sectionNewOperation, $sectionEditOperation];
-    sections.forEach(section => section.classList.add("is-hidden"));
-    $sectionBalance.classList.remove("is-hidden");
-};
 
 //Eliminar Operación
 const deleteOp = (id) => {
@@ -222,6 +234,8 @@ $btnNewCategory.addEventListener("click",()=>{
 
     localStorage.setItem("categoriesStorage", JSON.stringify(categories));
     const getCategoriesStorage = JSON.parse(localStorage.getItem("categoriesStorage"));
+    generateCategoriesHtml(getCategoriesStorage);
+    $inputCategory.value = "";
 });
 
 const hideOthersSections = () => {
@@ -230,9 +244,15 @@ const hideOthersSections = () => {
     $sectionEditCategory.classList.remove("is-hidden");
 };
 
+const showCategorySection = () => {
+    const sections = [$sectionBalance, $sectionReports, $sectionNewOperation, $sectionEditCategory];
+    sections.forEach(section => section.classList.add("is-hidden"));
+    $sectionCategories.classList.remove("is-hidden");
+};
+
 //Editar categoría
 let result;
-const editcategory = () => {
+const editcategory = (category) => {
     hideOthersSections();
     const foundCategory = categories.find((elemento) => elemento.id === category);
     if(foundCategory){
@@ -240,6 +260,41 @@ const editcategory = () => {
         result = {valor: $inputEditCategory.value, i: categories.indexOf(foundCategory)};
     }
     return result;
+};
+
+$btnEditCategory.addEventListener("click",() => {
+    categories[result.i].nombre = $inputEditCategory.value;
+    localStorage.setItem("categoriesStorage", JSON.stringify(categories));
+    generateCategoriesHtml(categories);
+
+    operations.forEach(() => {
+        const i = i.find((operation) => operation.categoria === result.valor);
+        if(i){
+            i.categoria = $inputEditCategory.value;
+            localStorage.setItem("operationsStorage", JSON.stringify(operations));
+        }
+        generateOperationsHtml(operations);
+    })
+    showCategorySection();
+});
+
+//Eliminar Categoría
+const deleteCategory = (category) => {
+    const selectedCategory = categories.find((elem) => elem.id === category);
+    const value = categories.find((elem) => elem.id === category);
+    if(value){
+        categories.splice(categories.indexOf(value), 1);
+        localStorage.setItem("categoriesStorage", JSON.stringify(categories));
+        generateCategoriesHtml(categories);
+    }
+    operations.forEach(() => {
+        const foundCategory = operations.find((operation) => operation.categoria === selectedCategory.nombre);
+        if(foundCategory){
+            operations.splice(operations.indexOf(foundCategory), 1);
+            localStorage.setItem("operationsStorage", JSON.stringify(operations));
+        }
+        generateOperationsHtml(operations);
+    });
 };
 
 //Generar categorías en vista categoría
@@ -254,7 +309,7 @@ const generateCategoriesHtml = (categories) => {
             </div>
             <div class="column has-text-right">
                 <button class="button is-small is-ghost" onclick="editcategory('${id}')">Editar</button>
-                <button class="button is-small is-ghost">Eliminar</button>
+                <button class="button is-small is-ghost" onclick="deleteCategory('${id}')">Eliminar</button>
             </div>
         </div>
         `;
