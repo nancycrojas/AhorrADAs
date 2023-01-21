@@ -37,6 +37,7 @@ const $listCategories = $("#list-categories");
 const $sectionEditCategory = $("#section-edit-category");
 const $inputEditCategory = $("#edit-category-name");
 const $btnEditCategory = $("#btn-edit-category");
+const $filtersCategory = $("#filters-category");
 
 //Eventos
 //Menú hamburguesa
@@ -235,6 +236,7 @@ $btnNewCategory.addEventListener("click",()=>{
     localStorage.setItem("categoriesStorage", JSON.stringify(categories));
     const getCategoriesStorage = JSON.parse(localStorage.getItem("categoriesStorage"));
     generateCategoriesHtml(getCategoriesStorage);
+    populateCategories(getCategoriesStorage);
     $inputCategory.value = "";
 });
 
@@ -266,6 +268,7 @@ $btnEditCategory.addEventListener("click",() => {
     categories[result.i].nombre = $inputEditCategory.value;
     localStorage.setItem("categoriesStorage", JSON.stringify(categories));
     generateCategoriesHtml(categories);
+    populateCategories(categories);
 
     operations.forEach(() => {
         const i = i.find((operation) => operation.categoria === result.valor);
@@ -286,6 +289,7 @@ const deleteCategory = (category) => {
         categories.splice(categories.indexOf(value), 1);
         localStorage.setItem("categoriesStorage", JSON.stringify(categories));
         generateCategoriesHtml(categories);
+        populateCategories(categories);
     }
     operations.forEach(() => {
         const foundCategory = operations.find((operation) => operation.categoria === selectedCategory.nombre);
@@ -317,5 +321,28 @@ const generateCategoriesHtml = (categories) => {
     }
 };
 
+//Llenar los selectores con las opciones de las categorías
+const populateCategories = (categories) => {
+    $operationCategory.innerHTML = "";
+    $filtersCategory.innerHTML = `<option value="todas">Todas</option>`;
+    for(const {nombre} of categories){
+        const option = document.createElement("option");
+        option.value = nombre;
+        option.innerHTML = nombre;
+        $operationCategory.appendChild(option);
+
+        const option2 = document.createElement("option");
+        option2.value = nombre;
+        option2.innerHTML = nombre;
+        $editOperationCategory.appendChild(option2);
+        
+        const option3 = document.createElement("option");
+        option3.value = nombre;
+        option3.innerHTML = nombre;
+        $filtersCategory.appendChild(option3);
+    }
+};
+
 categories = JSON.parse(localStorage.getItem("categoriesStorage")) || [];
 generateCategoriesHtml(categories);
+populateCategories(categories);
