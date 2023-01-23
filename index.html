@@ -53,16 +53,16 @@
                             <h2 class="title is-size-8 has-text-weight-bold">Balance</h2>
                             <div class="container">
                                 <div class="columns is-mobile is-vcentered">
-                                    <div class="column is-size-5">Ganancias</div>
-                                    <div class="column has-text-primary has-text-right is-size-5">+$0</div>
+                                    <p class="column is-size-5">Ganancias</p>
+                                    <p class="column has-text-primary has-text-right is-size-5" id="balance-ganancias">+$0</p>
                                 </div>
                                 <div class="columns is-mobile is-vcentered">
-                                    <div class="column is-size-5">Gastos</div>
-                                    <div class="column has-text-danger has-text-right is-size-5">-$0</div>
+                                    <p class="column is-size-5">Gastos</p>
+                                    <p class="column has-text-danger has-text-right is-size-5" id="balance-gastos">-$0</p>
                                 </div>
                                 <div class="columns is-mobile is-vcentered">
-                                    <div class="column is-size-5">Total</div>
-                                    <div class="column has-text-right is-size-5">$0</div>
+                                    <p class="column is-size-5">Total</p>
+                                    <p class="column has-text-right is-size-5" id="balance-total">$0</p>
                                 </div>
                             </div>
                         </article>
@@ -77,7 +77,6 @@
                                 </div>
                             </div>
                             <form id="form-filters">
-                                <div>
                                     <div class="field mt-4">
                                         <label class="label" for="filter-type">Tipo</label>
                                         <div class="select is-fullwidth">
@@ -88,8 +87,6 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-                                <div>
                                     <div class="field mt-4">
                                         <label class="label" for="filters-category">Categoría</label>
                                         <div class="select is-fullwidth">
@@ -98,16 +95,15 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
                                 <div>
                                     <div class="field mt-4">
-                                        <label class="label" for="date">Desde</label>
+                                        <label class="label" for="filter-date">Desde</label>
                                         <div class="control">
                                             <input
                                              class="input is-normal" 
                                              type="date" 
-                                             id="date"
-                                             name="date"
+                                             id="filter-date"
+                                             name="filter-date"
                                              >
                                         </div>
                                     </div>
@@ -345,11 +341,55 @@
             <div class="container column is-8">
                 <article class="box">
                     <h2 class="title has-text-weight-bold">Reportes</h2>
-                    <figure class="has-text-centered m-2">
-                        <img class="is-inline-block" src="./assets/undraw_Growth_analytics_re_pyxf-comp.png">
-                    </figure>
-                    <h3 class="subtitle is-size-4 has-text-centered"><strong>Operaciones insuficientes</strong></h3>
-                    <p class="has-text-centered mb-5">Prueba agregando más operaciones</p>
+                    <div id="box-without-reports">
+                        <figure class="has-text-centered m-2">
+                            <img class="is-inline-block" src="./assets/undraw_Growth_analytics_re_pyxf-comp.png">
+                        </figure>
+                        <h3 class="subtitle is-size-4 has-text-centered"><strong>Operaciones insuficientes</strong></h3>
+                        <p class="has-text-centered mb-5">Prueba agregando más operaciones</p>
+                    </div>
+                    <!--Resumen-->
+                    <div id="box-with-reports" class="is-hidden">
+                        <p class="is-size-4 has-text-weight-medium subtitle">Resumen</p>
+                        <div class="columns has-text-weight-medium is-mobile is-multiline">
+                            <p class="column">Categoría con mayor ganancia</p>
+                            <div class="column"></div>
+                        </div>
+                        <div class="columns has-text-weight-medium is-mobile is-multiline">
+                            <p class="column">Categoría con mayor gasto</p>
+                            <div class="column"></div>
+                        </div>
+                        <div class="columns has-text-weight-medium is-mobile is-multiline">
+                            <p class="column">Categoría con mayor balance</p>
+                            <div class="column"></div>
+                        </div>
+                        <div class="columns has-text-weight-medium is-mobile is-multiline">
+                            <p class="column">Mes con mayor ganancia</p>
+                            <div class="column"></div>
+                        </div>
+                        <div class="columns has-text-weight-medium is-mobile is-multiline">
+                            <p class="column">Mes con mayor gasto</p>
+                            <div class="column"></div>
+                        </div>
+                        <!--Totales de categorías-->
+                        <p class="is-size-4 has-text-weight-medium subtitle">Totales por categorías</p>
+                        <div class="columns has-text-weight-medium is-mobile is-multiline">
+                            <div class="column">Categoría</div>
+                            <div class="column">Ganancias</div>
+                            <div class="column">Gastos</div>
+                            <div class="column">Balance</div>
+                        </div>
+                        <div></div>
+                        <!--Totales por mes-->
+                        <p class="is-size-4 has-text-weight-medium subtitle">Totales por mes</p>
+                        <div class="columns has-text-weight-medium is-mobile is-multiline">
+                            <div class="column">Mes</div>
+                            <div class="column">Ganancias</div>
+                            <div class="column">Gastos</div>
+                            <div class="column">Balance</div>
+                        </div>
+                        <div></div>
+                    </div>
                 </article>
             </div>
         </section>

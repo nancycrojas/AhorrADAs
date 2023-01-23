@@ -38,6 +38,12 @@ const $sectionEditCategory = $("#section-edit-category");
 const $inputEditCategory = $("#edit-category-name");
 const $btnEditCategory = $("#btn-edit-category");
 const $filtersCategory = $("#filters-category");
+const $filterDate = $("#filter-date");
+const $balanceTotal = $("#balance-total");
+const $balanceGanancias = $("#balance-ganancias");
+const $balanceGastos = $("#balance-gastos");
+const $filterType = $("#filter-type");
+const $filterSort = $("#sort-filter");
 
 //Eventos
 //Menú hamburguesa
@@ -45,6 +51,15 @@ $btnBurger.addEventListener("click",()=>{
     $btnBurger.classList.toggle("is-active");
     $navbarMenu.classList.toggle("is-active");
 });
+
+//Función date
+const date = () => {
+    const today = new Date();
+    return today.toISOString().slice(0, 10);
+  };
+
+$operationDate.value = date();
+$filterDate.value = date();
 
 //Ocultar mostrar filtros
 $btnChangeFilters.addEventListener("click",()=>{
@@ -113,16 +128,25 @@ $btnAddOperation.addEventListener("click",()=>{
         fecha: $operationDate.value,
         id: uuid.v1()  
     };
+
+    if(newOperation.tipo == "gastos"){
+        console.log("multiplicaaa");
+        newOperation.monto = Number(newOperation.monto) * -1;
+    }
+
     //Agrego el objeto a la lista operations y la guardo en el local storage
     operations.push(newOperation);
     localStorage.setItem("operationsStorage", JSON.stringify(operations));
     const getOperationsStorage = JSON.parse(localStorage.getItem("operationsStorage"));
 
     generateOperationsHtml(getOperationsStorage);
+    showBalanceHtml(getOperationsStorage);
+    filterOperations();
 });
 
 //Generar operaciones en balance
 const generateOperationsHtml = (operations) => {
+    showingOperations(operations);
     $operations.innerHTML = "";
     const $divContainer = document.createElement("div");
     for(const { descripcion, categoria, fecha, tipo, monto, id } of operations) {
@@ -175,6 +199,9 @@ const editOp = (id) => {
     $editOperationType.value = operationToEdit.tipo;
     $editOperationCategory.value = operationToEdit.categoria;
     $editOperationDate.value = operationToEdit.fecha;
+    if($editOperationType.value == "gastos"){
+        $editOperationAmount.value = Number(operationToEdit.monto) * -1;
+    }
     return operationToEdit;
 };
 
@@ -185,8 +212,14 @@ $btnEditOperation.addEventListener("click",()=>{
     operationToEdit.categoria = $editOperationCategory.value;
     operationToEdit.fecha = $editOperationDate.value;
 
+    if(operationToEdit.tipo == "gastos"){
+        operationToEdit.monto = Number($editOperationAmount.value) * -1;
+    }
+
     localStorage.setItem("operationsStorage", JSON.stringify(operations));
     generateOperationsHtml(operations);
+    showBalanceHtml(operations);
+    filterOperations();
     showSectionOp();
 });
 
@@ -198,6 +231,8 @@ const deleteOp = (id) => {
         operations.splice(index,1);
         localStorage.setItem("operationsStorage", JSON.stringify(operations));
         generateOperationsHtml(operations);
+        showBalanceHtml(operations);
+        filterOperations();
     }
 };
 
@@ -277,7 +312,8 @@ $btnEditCategory.addEventListener("click",() => {
             localStorage.setItem("operationsStorage", JSON.stringify(operations));
         }
         generateOperationsHtml(operations);
-    })
+        showBalanceHtml(operations);
+    });
     showCategorySection();
 });
 
@@ -298,6 +334,7 @@ const deleteCategory = (category) => {
             localStorage.setItem("operationsStorage", JSON.stringify(operations));
         }
         generateOperationsHtml(operations);
+        showBalanceHtml(operations);
     });
 };
 
@@ -346,3 +383,149 @@ const populateCategories = (categories) => {
 categories = JSON.parse(localStorage.getItem("categoriesStorage")) || [];
 generateCategoriesHtml(categories);
 populateCategories(categories);
+
+//Box balance
+const calculateBalance = (operaciones) => {
+    return operaciones.reduce(
+        (balance, operacion) => {
+            if(operacion.tipo == "ganancia"){
+                return {
+                    ...balance,
+                    ganancias: Number(balance.ganancias) + Number(operacion.monto),
+                    total: Number(balance.total) + Number(operacion.monto),
+                };
+            }
+            if(operacion.tipo == "gastos"){
+                return {
+                    ...balance,
+                    gastos: Number(balance.gastos) + Number(operacion.monto),
+                    total: Number(balance.total) + Number(operacion.monto),
+                };
+            } 
+        },
+        {
+            ganancias: 0,
+            gastos: 0,
+            total: 0,
+        }
+    );
+};
+
+//Mostrar en box balance
+const showBalanceHtml = (operaciones) => {
+    const balanceData = calculateBalance(operaciones);
+
+    $balanceTotal.classList.remove("has-text-danger", "has-text-primary");
+
+    if(balanceData.total > 0){
+        console.log(balanceData);
+        $balanceTotal.classList.add("has-text-primary");
+    }
+    if(balanceData.total < 0){
+        $balanceTotal.classList.add("has-text-danger");
+    }
+
+    $balanceGanancias.innerText = `$${balanceData["ganancias"]}`;
+    $balanceGastos.innerText = `$${balanceData["gastos"]}`;
+    $balanceTotal.innerText = `$${balanceData["total"]}`;
+};
+
+//Filtros
+//Tipo
+const filterType = (tipo, operaciones) => 
+    operaciones.filter((operacion) => operacion.tipo === tipo);
+
+//Categoría
+const filterCategory = (categoria, operaciones) => 
+    operaciones.filter((operacion) => operacion.categoria === categoria);
+
+//Desde
+const filterDateGreaterOrEqual = (fecha, operaciones) => 
+    operaciones.filter(
+        (operacion) => new Date(operacion.fecha).getTime()>= new Date(fecha).getTime());
+
+const sortMoreLeastRecent = (operaciones, orden) => {
+    const newArray = [...operaciones];
+    let resultado;
+    if(orden === "ascendente"){
+        resultado = newArray.sort((a,b) => (a.fecha > b.fecha ? 1 : -1));
+    }else{
+        resultado = newArray.sort((a,b) => (a.fecha < b.fecha ? 1 : -1));
+    }
+    return resultado;
+};
+
+//Ordenar por
+const sortAmount = (operaciones, orden) => {
+    const newArray = [...operaciones];
+    let resultado;
+    if(orden === "ascendente"){
+        resultado = newArray.sort((a,b) =>
+        Number(a.monto) > Number(b.monto) ? 1 : -1
+        );
+    }else{
+        resultado = newArray.sort((a,b) =>
+        Number(a.monto) < Number(b.monto) ? 1 : -1
+        );
+    }
+    return resultado;
+};
+
+const orderAZ_ZA = (operaciones, orden) => {
+    const newArray = [...operaciones];
+    let resultado;
+    if(orden === "A_Z"){
+        resultado = newArray.sort((a,b) => (a.descripcion > b.descripcion ? 1 : -1));
+    }else{
+        resultado = newArray.sort((a,b) => (a.descripcion < b.descripcion ? 1 : -1));
+    }
+    return resultado;
+};
+
+const filterOperations = () => {
+    const tipo = $filterType.value;
+    const categoria = $filtersCategory.value;
+    const fecha = $filterDate.value;
+    const orden = $filterSort.value;
+
+    let operaciones = operations;
+
+    if(tipo !== "Todas"){
+        operaciones = filterType(tipo, operaciones);
+    }
+    if(categoria !== "Todas"){
+        operaciones = filterCategory(categoria, operaciones);
+    }
+
+    operaciones = filterDateGreaterOrEqual(fecha,operaciones);
+
+    switch (orden) {
+        case "Mas reciente":
+            operaciones = sortMoreLeastRecent(operaciones, "descendente");
+            break;
+        case "Menos reciente":
+            operaciones = sortMoreLeastRecent(operaciones, "ascendente");
+            break;
+        case "Mayor monto":
+            operaciones = sortAmount(operaciones, "descendente");
+            break;
+        case "Menor monto":
+            operaciones = sortAmount(operaciones, "ascendente");
+            break;
+        case "A/Z":
+            operaciones = orderAZ_ZA(operaciones, "A-Z");
+            break;
+        case "Z/A":
+            operaciones = orderAZ_ZA(operaciones, "Z-A");
+            break;
+            default:
+                break;
+    }
+    generateOperationsHtml(operaciones);
+    showBalanceHtml(operaciones);
+};
+
+$filterType.addEventListener("change", filterOperations);
+$filtersCategory.addEventListener("change", filterOperations);
+$filterDate.addEventListener("change", filterOperations);
+$filterSort.addEventListener("change",filterOperations);
