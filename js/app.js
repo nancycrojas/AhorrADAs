@@ -457,9 +457,9 @@ const sortMoreLeastRecent = (operaciones, orden) => {
     const newArray = [...operaciones];
     let resultado;
     if(orden === "ascendente"){
-        resultado = newArray.sort((a,b) => (a.fecha > b.fecha ? 1 : -1));
+        resultado = newArray.sort((a,b) => (new Date(a.fecha).getTime() > new Date(b.fecha).getTime() ? 1 : -1));
     }else{
-        resultado = newArray.sort((a,b) => (a.fecha < b.fecha ? 1 : -1));
+        resultado = newArray.sort((a,b) => (new Date(a.fecha).getTime() < new Date(b.fecha).getTime() ? 1 : -1));
     }
     return resultado;
 };
@@ -497,7 +497,12 @@ const filterOperations = () => {
     const fecha = $filterDate.value;
     const orden = $filterSort.value;
 
+    console.log(operations)
+
     let operaciones = operations;
+
+    console.log(tipo)
+    console.log(categoria)
 
     if(tipo !== "Todas"){
         operaciones = filterType(tipo, operaciones);
@@ -506,10 +511,13 @@ const filterOperations = () => {
         operaciones = filterCategory(categoria, operaciones);
     }
 
+    console.log(fecha)
+
     operaciones = filterDateGreaterOrEqual(fecha,operaciones);
 
     switch (orden) {
         case "Mas reciente":
+            console.log(operaciones);
             operaciones = sortMoreLeastRecent(operaciones, "descendente");
             break;
         case "Menos reciente":
@@ -538,3 +546,16 @@ $filterType.addEventListener("change", filterOperations);
 $filtersCategory.addEventListener("change", filterOperations);
 $filterDate.addEventListener("change", filterOperations);
 $filterSort.addEventListener("change",filterOperations);
+
+//Reportes
+// const reportes = (operaciones) => {
+//     console.log(operaciones);
+//     if(filterType("Ganancia", operaciones).length && filterType("Gastos", operaciones).length){
+//         $boxWithoutReports.classList.add("is-hidden");
+//         $boxWithReports.classList.remove("is-hidden");
+//     }else{
+//         $boxWithoutReports.classList.remove("is-hidden");
+//         $boxWithReports.classList.add("is-hidden");
+//     }
+    
+// };
