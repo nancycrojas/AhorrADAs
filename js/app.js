@@ -139,7 +139,6 @@ $btnAddOperation.addEventListener("click",()=>{
     };
 
     if(newOperation.tipo == "gastos"){
-        console.log("multiplicaaa");
         newOperation.monto = Number(newOperation.monto) * -1;
     }
 
@@ -427,7 +426,6 @@ const showBalanceHtml = (operaciones) => {
     $balanceTotal.classList.remove("has-text-danger", "has-text-primary");
 
     if(balanceData.total > 0){
-        console.log(balanceData);
         $balanceTotal.classList.add("has-text-primary");
     }
     if(balanceData.total < 0){
@@ -497,12 +495,7 @@ const filterOperations = () => {
     const fecha = $filterDate.value;
     const orden = $filterSort.value;
 
-    console.log(operations)
-
     let operaciones = operations;
-
-    console.log(tipo)
-    console.log(categoria)
 
     if(tipo !== "Todas"){
         operaciones = filterType(tipo, operaciones);
@@ -511,13 +504,13 @@ const filterOperations = () => {
         operaciones = filterCategory(categoria, operaciones);
     }
 
-    console.log(fecha)
+    //console.log(fecha) hasta aca
 
     operaciones = filterDateGreaterOrEqual(fecha,operaciones);
 
     switch (orden) {
         case "Mas reciente":
-            console.log(operaciones);
+            //console.log(operaciones);
             operaciones = sortMoreLeastRecent(operaciones, "descendente");
             break;
         case "Menos reciente":
