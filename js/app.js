@@ -44,6 +44,15 @@ const $balanceGanancias = $("#balance-ganancias");
 const $balanceGastos = $("#balance-gastos");
 const $filterType = $("#filter-type");
 const $filterSort = $("#sort-filter");
+const $boxWithoutReports = $("#box-without-reports");
+const $boxWithReports = $("#box-with-reports");
+const $greaterGain = $("#greater-gain");
+const $greaterExpenditure = $("#greater-expenditure");
+const $greaterBalance = $("#greater-balance");
+const $monthGreaterGain = $("#month-greater-gain");
+const $monthGreaterExpenditure = $("#month-greater-expenditure");
+const $categoriesTotal = $("#categories-total");
+const $categoriesMonth = $("#categories-month");
 
 //Eventos
 //Menú hamburguesa
@@ -141,7 +150,7 @@ $btnAddOperation.addEventListener("click",()=>{
 
     generateOperationsHtml(getOperationsStorage);
     showBalanceHtml(getOperationsStorage);
-    filterOperations();
+    // filterOperations();
 });
 
 //Generar operaciones en balance
@@ -219,7 +228,7 @@ $btnEditOperation.addEventListener("click",()=>{
     localStorage.setItem("operationsStorage", JSON.stringify(operations));
     generateOperationsHtml(operations);
     showBalanceHtml(operations);
-    filterOperations();
+    //filterOperations();
     showSectionOp();
 });
 
@@ -232,7 +241,7 @@ const deleteOp = (id) => {
         localStorage.setItem("operationsStorage", JSON.stringify(operations));
         generateOperationsHtml(operations);
         showBalanceHtml(operations);
-        filterOperations();
+        //filterOperations();
     }
 };
 
